@@ -1,0 +1,29 @@
+/* ----------------------- */
+/* STYLES FOR NAVBAR       */
+/* ----------------------- */
+
+#nav-bar {
+  background-color:#00a087;
+  color:#e8fdff;
+  clear:both;
+  float:none;
+  height:80px;
+  position:fixed;
+  top:0px;
+  padding:0px 2em;
+  width:100%;
+  z-index:1;
+}
+
+#nav-bar span {
+  font-size:2em;
+}
+
+#nav-bar .logo, #nav-bar .header {
+  float:left;
+}
+
+#nav-bar .header {
+  line-height:75px;
+  margin-left:10px;
+}
