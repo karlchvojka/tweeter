@@ -4,54 +4,6 @@
  * Reminder: Use (and do all your DOM work in) jQuery's document ready function
  */
 
-// TEST CODE!!! EVENTUALLY WILL PULL FROM SERVER
-const data = [
-  {
-    "user": {
-      "name": "Newton",
-      "avatars": {
-        "small":   "https://vanillicon.com/788e533873e80d2002fa14e1412b4188_50.png",
-        "regular": "https://vanillicon.com/788e533873e80d2002fa14e1412b4188.png",
-        "large":   "https://vanillicon.com/788e533873e80d2002fa14e1412b4188_200.png"
-      },
-      "handle": "@SirIsaac"
-    },
-    "content": {
-      "text": "If I have seen further it is by standing on the shoulders of giants"
-    },
-    "created_at": 1461116232227
-  },
-  {
-    "user": {
-      "name": "Descartes",
-      "avatars": {
-        "small":   "https://vanillicon.com/7b89b0d8280b93e2ba68841436c0bebc_50.png",
-        "regular": "https://vanillicon.com/7b89b0d8280b93e2ba68841436c0bebc.png",
-        "large":   "https://vanillicon.com/7b89b0d8280b93e2ba68841436c0bebc_200.png"
-      },
-      "handle": "@rd" },
-    "content": {
-      "text": "Je pense , donc je suis"
-    },
-    "created_at": 1461113959088
-  },
-  {
-    "user": {
-      "name": "Johann von Goethe",
-      "avatars": {
-        "small":   "https://vanillicon.com/d55cf8e18b47d4baaf60c006a0de39e1_50.png",
-        "regular": "https://vanillicon.com/d55cf8e18b47d4baaf60c006a0de39e1.png",
-        "large":   "https://vanillicon.com/d55cf8e18b47d4baaf60c006a0de39e1_200.png"
-      },
-      "handle": "@johann49"
-    },
-    "content": {
-      "text": "Es ist nichts schrecklicher als eine tätige Unwissenheit."
-    },
-    "created_at": 1461113796368
-  }
-];
-
 // createTweetElement produces the html for the individual elements.
 function createTweetElement (input) {
   // Create variables representing the individual elements in a tweet.
@@ -100,7 +52,7 @@ function createTweetElement (input) {
     }
     interval = Math.floor(seconds / 60);
 
-    if (interval > 1) {
+    if (interval >= 1) {
       return interval + ' minutes ago';
     }
 
@@ -138,12 +90,71 @@ function createTweetElement (input) {
 
 // Loop through database and run the createTweetElement for each entry found.
 function renderTweets (inputData) {
+  console.log('renderTweetsFull', inputData)
   for (let tweet in inputData) {
+    console.log('renderTweets', tweet)
     $('.container').append(createTweetElement(inputData[tweet]))
   }
 }
 
 // Run function on load.
-$(document).ready(function() {
-  renderTweets(data)
+$(document).ready(function () {
+
+  $('.composeButton').click(function () {
+    $('.new-tweet').slideToggle('slow', function() {
+      $('.new-tweet form textarea').focus();
+    });
+  })
+  // Handles Form Submission
+  $('.new-tweet form').submit(function (e) {
+    e.preventDefault();
+    // SERIALIZES DATA!!! THIS IS OK BECAUSE THE SERVER IS CONFIGURED
+    // CHECK /URL/tweets/ TO SEE AN OUTPUT OF THE ENTRY
+
+
+    if (!$('textarea', this).val()) {
+      if ($('.errorMessages:visible').length > 0) {
+        $('.errorMessages').slideToggle('slow');
+      }
+      $('.errorMessages').slideToggle('slow');
+      $('.errorMessages h3').text('Please fill out the form properly');
+      return
+    }
+
+    if ($('.new-tweet form textarea').val().length > 140) {
+      if ($('.errorMessages:visible').length > 0) {
+        $('.errorMessages').slideToggle('slow');
+      }
+      $('.errorMessages').slideToggle('slow');
+      $('.errorMessages h3').text('Tweet max length is 140. Please try again.');
+      return
+    }
+
+    if ($('.errorMessages:visible').length > 0) {
+      $('.errorMessages').slideToggle('slow');
+    }
+    const sentData = $(this).serialize();
+
+    $.ajax({
+      type: 'POST',
+      url: '/tweets',
+      data: sentData
+    })
+
+    loadTweets();
+  })
+
+  const loadTweets = () => $.ajax({
+    type: 'GET',
+    url: '/tweets',
+    dataType: 'json'
+  })
+    .done(function (response) {
+      renderTweets(response);
+      // for (let tweet in response) {
+      //   $('.pre-tweets').prepend(createTweetElement(response[tweet]))
+      // }
+    })
+
+  loadTweets();
 });

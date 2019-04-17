@@ -31,3 +31,10 @@ body {
    padding:2em;
    width:450px;
  }
+
+.errorMessages {
+  color: #D8000C;
+  display:none;
+	background-color: #FFBABA;
+  padding:5px 10px;
+}

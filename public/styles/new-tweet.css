@@ -16,6 +16,7 @@
   clear:both;
   float:none;
   padding:10px 10px 35px 10px;
+  display:none;
 }
 
 .new-tweet textarea {

@@ -27,3 +27,9 @@
   line-height:75px;
   margin-left:10px;
 }
+
+#nav-bar button {
+  float:right;
+  margin-top:5px;
+  padding:20px 30px;
+}
