@@ -2,6 +2,8 @@
 
 Tweeter is a simple, single-page Twitter clone.
 
+!["Screenshot of URLs pager"](https://github.com/karlchvojka/tweeter/docs/screenshot1.png?raw=true)
+
 ## Getting Started
 
 ### Prerequisites
