@@ -39,11 +39,11 @@ npm run local
 Start the web server using the `npm run local` command. The app will be served at <http://localhost:8080/>.
 
 ### Package dependencies
-- [Body Parser (v1.15.2)][https://www.npmjs.com/package/body-parser]
-- [Chance (v1.0.2)][https://www.npmjs.com/package/chance]
-- [Express (v4.13.4)][https://www.npmjs.com/package/express]
-- [MD5 (v2.1.0)][https://www.npmjs.com/package/md5]
-- [Mongodb (v2.2.36)][https://www.npmjs.com/package/mongodb]
+- [Body Parser (v1.15.2)]https://www.npmjs.com/package/body-parser
+- [Chance (v1.0.2)]https://www.npmjs.com/package/chance
+- [Express (v4.13.4)]https://www.npmjs.com/package/express
+- [MD5 (v2.1.0)]https://www.npmjs.com/package/md5
+- [Mongodb (v2.2.36)]https://www.npmjs.com/package/mongodb
 
 ## Changelog
 ### April 15, 2019
