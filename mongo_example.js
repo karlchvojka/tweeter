@@ -14,15 +14,17 @@ MongoClient.connect(MONGODB_URI, (err, db) => {
 
   console.log(`Connected to mongodb: ${MONGODB_URI}`);
 
-  // ==> In typical node-callback style, any program
-  //     logic that needs to use the connection needs
-  //     to be invoked from within here.
-  //
-  //
-  // Another way to say: this is an "entry point" for
-  // a database-connected application!
+  // ==> Let's 'get all the tweets'. In Mongo-speak, we "find" them.
+  db.collection('tweets').find({}, (err, result) => {
+    // lazy error handling
+    if (err) throw err;
 
-  // ==> At the end, we close our connection;
+    // ==> Fair warning: This is going to log a lot of stuff...
+    console.log('find result: ', result);
+    console.log('type of find result', typeof result);
 
+    // ===> this is inside the callback now. Think about it:
+    // This is now the "end of the program", right?
+  })
   db.close();
 })
