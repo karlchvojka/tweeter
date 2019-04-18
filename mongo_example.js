@@ -9,7 +9,7 @@ MongoClient.connect(MONGODB_URI, (err, db) => {
     throw err;
   }
 
-  // We have a connection to the 'tweeter' db, starting here.
+  // Connect to mongodb and display.
   console.log(`Connected to mongodb: ${MONGODB_URI}`);
 
   // ===> Refactored and wrapped as new, tweet-specific function:
@@ -18,15 +18,10 @@ MongoClient.connect(MONGODB_URI, (err, db) => {
     db.collection('tweets').find().toArray(callback);
   }
 
-  // ==> Later it can be invoked. Remember even if you pasas
-  //     'getTweets' to another scope, it still has closure over
-  //     'db', so it will still work. YAY!
-
   getTweets((err, tweets) => {
     if (err) throw err;
-
     console.log('logging each tweet:');
-    for(let tweet of tweets) {
+    for (let tweet of tweets) {
       console.log(tweet);
     }
 

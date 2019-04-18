@@ -37,6 +37,10 @@
   float:right;
 }
 
+article.tweetContainer:first-child {
+  margin-top:0px;
+}
+
 article.tweetContainer {
   border:1px solid #efefef;
   border-radius:5px;

@@ -9,9 +9,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 
     <!-- App CSS -->
-    <link rel="stylesheet" href="styles/layout.css" type="text/css" />
-    <link rel="stylesheet" href="styles/nav.css" type="text/css" />
-    <link rel="stylesheet" href="styles/new-tweet.css" type="text/css" />
+    <link rel="stylesheet" href="/styles.css" type="text/css" />
 
     <!-- Font Inclues -->
     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed|Roboto:300,400,700" rel="stylesheet">
@@ -35,6 +33,7 @@
 
     <!-- Page-specific (main) content here -->
     <main class="container">
+      <!-- Section for the new tweet form -->
       <section class="new-tweet">
         <h2>Compose Tweet</h2>
         <form action="/tweets/" method="POST">
@@ -43,9 +42,11 @@
           <span class="counter">140</span>
         </form>
       </section>
+      <!-- Section Placeholder for the error messages section. -->
       <section class="errorMessages">
         <h3>This is an error message</h3>
       </section>
+      <!-- Section for the tweets. -->
       <section class="pre-tweets">
       </section>
     </main>

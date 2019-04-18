@@ -1,9 +1,3 @@
-/*
- * Client-side JS logic goes here
- * jQuery is already loaded
- * Reminder: Use (and do all your DOM work in) jQuery's document ready function
- */
-
 // createTweetElement produces the html for the individual elements.
 function createTweetElement (input) {
   // Create variables representing the individual elements in a tweet.
@@ -32,35 +26,42 @@ function createTweetElement (input) {
     var seconds = Math.floor((new Date() - inputDate) / 1000);
     var interval = Math.floor(seconds / 31536000);
 
+    // Convert for years
     if (interval > 1) {
       return interval + ' years ago';
     }
     interval = Math.floor(seconds / 2592000);
 
+    // Convert for months
     if (interval > 1) {
       return interval + ' months ago';
     }
     interval = Math.floor(seconds / 86400);
 
+    // Convert for days
     if (interval > 1) {
       return interval + ' days ago';
     }
     interval = Math.floor(seconds / 3600);
 
+    // Convert for hours
     if (interval > 1) {
       return interval + ' hours ago';
     }
     interval = Math.floor(seconds / 60);
 
+    // Convert for Minuets
     if (interval >= 1) {
       return interval + ' minutes ago';
     }
 
+    // Convert for Seconds
     return Math.floor(seconds) + ' seconds ago';
   }
 
+  // ****************************************************** //
   // Appending elements to facilitate the creation of a tweet.
-
+  // ****************************************************** //
   // Create tweet wrapper.
   $(tweetWrap).append(tweetHead);
 
@@ -99,30 +100,33 @@ function renderTweets (inputData) {
 $(document).ready(function () {
 
   $('.composeButton').click(function () {
-    $('.new-tweet').slideToggle('slow', function() {
+    $('.new-tweet').slideToggle('slow', function () {
       $('.new-tweet form textarea').focus();
     });
   })
   // Handles Form Submission
   $('.new-tweet form').submit(function (e) {
     e.preventDefault();
-    // SERIALIZES DATA!!! THIS IS OK BECAUSE THE SERVER IS CONFIGURED
-    // CHECK /URL/tweets/ TO SEE AN OUTPUT OF THE ENTRY
 
-
+    // Error checks for empty textarea
     if (!$('textarea', this).val()) {
+      // Check for fixes and hide error messages.
       if ($('.errorMessages:visible').length > 0) {
         $('.errorMessages').slideToggle('slow');
       }
+
       $('.errorMessages').slideToggle('slow');
       $('.errorMessages h3').text('Please fill out the form properly');
       return
     }
 
+    // Error checks for tweets that are too long
     if ($('.new-tweet form textarea').val().length > 140) {
+      // Check for fixes and hide error messages.
       if ($('.errorMessages:visible').length > 0) {
         $('.errorMessages').slideToggle('slow');
       }
+
       $('.errorMessages').slideToggle('slow');
       $('.errorMessages h3').text('Tweet max length is 140. Please try again.');
       return
@@ -131,8 +135,11 @@ $(document).ready(function () {
     if ($('.errorMessages:visible').length > 0) {
       $('.errorMessages').slideToggle('slow');
     }
+
+    // Serializes the data inputed into the field.
     const sentData = $(this).serialize();
 
+    // AJAX POST declaration.
     $.ajax({
       type: 'POST',
       url: '/tweets',
@@ -142,14 +149,17 @@ $(document).ready(function () {
     loadTweets();
   })
 
+  // Load Tweets declared as variable.
   const loadTweets = () => $.ajax({
     type: 'GET',
     url: '/tweets',
     dataType: 'json'
   })
     .done(function (response) {
+      // Render tweets after loading from Database.
       renderTweets(response);
     })
 
+  // Call Loadtweets on document load.
   loadTweets();
 });

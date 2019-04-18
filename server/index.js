@@ -6,6 +6,8 @@ const PORT          = 8080;
 const express       = require("express");
 const bodyParser    = require("body-parser");
 const app           = express();
+
+// Mongo Setup
 const Mongo = require('mongodb');
 const MongoClient = Mongo.MongoClient;
 const MONGODB_URI = 'mongodb://localhost:27017/tweeter';
