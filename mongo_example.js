@@ -21,8 +21,11 @@ MongoClient.connect(MONGODB_URI, (err, db) => {
 
     // ==> We can iterate on the cursor to get results, one at a time:
     console.log('For each item yeilded by the cursor:');
-    results.each((err, item) => console.log(" ", item));
+    results.toArray((err, resultsArray) => {
+      if (err) throw err;
 
+      console.log('results.toArray', resultsArray)
+    }
     // this is the end.
     db.close();
   });
