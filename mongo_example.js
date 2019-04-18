@@ -15,16 +15,16 @@ MongoClient.connect(MONGODB_URI, (err, db) => {
   console.log(`Connected to mongodb: ${MONGODB_URI}`);
 
   // ==> Let's 'get all the tweets'. In Mongo-speak, we "find" them.
-  db.collection('tweets').find({}, (err, result) => {
+  db.collection('tweets').find({}, (err, results) => {
     // lazy error handling
     if (err) throw err;
 
-    // ==> Fair warning: This is going to log a lot of stuff...
-    console.log('find result: ', result);
-    console.log('type of find result', typeof result);
+    // ==> We can iterate on the cursor to get results, one at a time:
+    console.log('For each item yeilded by the cursor:');
+    results.each((err, item) => console.log(" ", item));
 
-    // ===> this is inside the callback now. Think about it:
-    // This is now the "end of the program", right?
-  })
+    // this is the end.
+    db.close();
+  });
   db.close();
 })
