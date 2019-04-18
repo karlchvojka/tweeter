@@ -90,10 +90,8 @@ function createTweetElement (input) {
 
 // Loop through database and run the createTweetElement for each entry found.
 function renderTweets (inputData) {
-  console.log('renderTweetsFull', inputData)
   for (let tweet in inputData) {
-    console.log('renderTweets', tweet)
-    $('.container').append(createTweetElement(inputData[tweet]))
+    $('.pre-tweets').prepend(createTweetElement(inputData[tweet]))
   }
 }
 
@@ -151,9 +149,6 @@ $(document).ready(function () {
   })
     .done(function (response) {
       renderTweets(response);
-      // for (let tweet in response) {
-      //   $('.pre-tweets').prepend(createTweetElement(response[tweet]))
-      // }
     })
 
   loadTweets();
