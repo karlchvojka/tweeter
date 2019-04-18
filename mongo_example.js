@@ -9,21 +9,27 @@ MongoClient.connect(MONGODB_URI, (err, db) => {
     throw err;
   }
 
-  // ==> We have a connection to the 'test-tweets' db,
-  // Starting here.
-
+  // We have a connection to the 'tweeter' db, starting here.
   console.log(`Connected to mongodb: ${MONGODB_URI}`);
 
-  // ==> We can just get the results as an array all at once.
-  db.collection('tweets').find().toArray((err, results) => {
-    // lazy error handling
+  // ===> Refactored and wrapped as new, tweet-specific function:
+
+  function getTweets(callback) {
+    db.collection('tweets').find().toArray(callback);
+  }
+
+  // ==> Later it can be invoked. Remember even if you pasas
+  //     'getTweets' to another scope, it still has closure over
+  //     'db', so it will still work. YAY!
+
+  getTweets((err, tweets) => {
     if (err) throw err;
 
-    // ==> We can iterate on the cursor to get results, one at a time:
-    console.log('resulting array: ', results);
+    console.log('logging each tweet:');
+    for(let tweet of tweets) {
+      console.log(tweet);
+    }
 
-    // this is the end.
     db.close();
   });
-  db.close();
-})
+});
