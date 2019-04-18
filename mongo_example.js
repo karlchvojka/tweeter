@@ -24,8 +24,8 @@ MongoClient.connect(MONGODB_URI, (err, db) => {
     results.toArray((err, resultsArray) => {
       if (err) throw err;
 
-      console.log('results.toArray', resultsArray)
-    }
+      console.log('results.toArray', resultsArray);
+    });
     // this is the end.
     db.close();
   });
